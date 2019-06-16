@@ -1,17 +1,23 @@
 package com.example.task.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.view.MenuItem
 import android.support.v4.widget.DrawerLayout
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.task.R
+import com.example.task.constants.TaskConstants
+import com.example.task.util.SecurityPreferences
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var mSecurityPreferences: SecurityPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +41,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         navView.setNavigationItemSelectedListener(this)
+
+        mSecurityPreferences = SecurityPreferences(this)
+        startDefaultFragment()
+    }
+
+    private fun startDefaultFragment() {
+        val fragment: Fragment = TaskListFragment.newInstance()
+        supportFragmentManager.beginTransaction().replace(R.id.frameContent, fragment).commit()
     }
 
     override fun onBackPressed() {
@@ -64,19 +78,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
+        var fragment: Fragment? = null
         when (item.itemId) {
             R.id.nav_done -> {
-                // Handle the camera action
+                fragment = TaskListFragment.newInstance()
             }
             R.id.nav_todo -> {
-
+                fragment = TaskListFragment.newInstance()
             }
             R.id.nav_logout -> {
-
+                handleLogOut()
             }
         }
+
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction().replace(R.id.frameContent, fragment!!).commit()
+
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun handleLogOut() {
+
+        mSecurityPreferences.removeStoredString(TaskConstants.KEY.USER_ID)
+        mSecurityPreferences.removeStoredString(TaskConstants.KEY.USER_NAME)
+        mSecurityPreferences.removeStoredString(TaskConstants.KEY.USER_EMAIL)
+
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 }

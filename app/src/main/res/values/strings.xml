@@ -20,4 +20,13 @@
     <string name="email">Email</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="senha">Senha</string>
+    <string name="informe_todos_campos">Informe todos os campos!!</string>
+    <string name="erro_inesperado">Algo de errado aconteceu!! Tente Novamente!</string>
+    <string name="email_em_uso">Email em uso</string>
+    <string name="entrar">Entrar</string>
+    <string name="email_senha_incorretos">Email ou senha incorretos!!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="descricao">Descrição</string>
 </resources>

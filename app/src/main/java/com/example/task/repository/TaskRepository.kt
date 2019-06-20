@@ -33,7 +33,14 @@ class TaskRepository private constructor(context: Context) {
             insertValues.put(DataBaseConstants.TASK.COLUMNS.DUEDATE, taskEntity.dueDate)
             insertValues.put(DataBaseConstants.TASK.COLUMNS.COMPLETE, complete)
 
-            db.insert(DataBaseConstants.TASK.TABLE_NAME, null, insertValues).toInt()
+            /*val sql = "insert into ${DataBaseConstants.TASK.TABLE_NAME}(${DataBaseConstants.TASK.COLUMNS.USERID}," +
+                    "${DataBaseConstants.TASK.COLUMNS.PRIORITYID}, ${DataBaseConstants.TASK.COLUMNS.DESCRIPTION}," +
+                    "${DataBaseConstants.TASK.COLUMNS.DUEDATE}, ${DataBaseConstants.TASK.COLUMNS.COMPLETE}) values (${taskEntity.userId}," +
+                    "${taskEntity.priorityId}, ${taskEntity.description}, ${taskEntity.dueDate}, $complete)"
+
+            db.rawQuery(sql,null)*/
+
+            db.insert(DataBaseConstants.TASK.TABLE_NAME, null, insertValues)
         } catch (e: Exception) {
             throw e
         }
@@ -123,7 +130,7 @@ class TaskRepository private constructor(context: Context) {
         return taskEntity
     }
 
-    fun getList(userId: Int): MutableList<TaskEntity> {
+    fun getList(userId: Int,taskFilter: Int): MutableList<TaskEntity> {
 
         val list = mutableListOf<TaskEntity>()
 
@@ -133,7 +140,8 @@ class TaskRepository private constructor(context: Context) {
 
             cursor = db.rawQuery(
                 "select * from ${DataBaseConstants.TASK.TABLE_NAME} " +
-                        "WHERE ${DataBaseConstants.TASK.COLUMNS.USERID} = $userId", null
+                        "WHERE ${DataBaseConstants.TASK.COLUMNS.USERID} = $userId" +
+                        " AND ${DataBaseConstants.TASK.COLUMNS.COMPLETE} = $taskFilter", null
             )
 
             if (cursor.count > 0) {

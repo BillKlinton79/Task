@@ -11,13 +11,16 @@ import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.example.task.R
+import com.example.task.business.PriorityBusiness
 import com.example.task.constants.TaskConstants
+import com.example.task.repository.PriorityCacheConstants
 import com.example.task.util.SecurityPreferences
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var mSecurityPreferences: SecurityPreferences
+    private lateinit var mPriorityBusiness: PriorityBusiness
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +46,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         navView.setNavigationItemSelectedListener(this)
 
         mSecurityPreferences = SecurityPreferences(this)
+        mPriorityBusiness = PriorityBusiness(this)
+        loadPriorityCache()
         startDefaultFragment()
     }
 
+    private fun loadPriorityCache() {
+        PriorityCacheConstants.setCache(mPriorityBusiness.getList())
+    }
+
     private fun startDefaultFragment() {
-        val fragment: Fragment = TaskListFragment.newInstance()
+        val fragment: Fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.TODO)
         supportFragmentManager.beginTransaction().replace(R.id.frameContent, fragment).commit()
     }
 
@@ -81,10 +90,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         var fragment: Fragment? = null
         when (item.itemId) {
             R.id.nav_done -> {
-                fragment = TaskListFragment.newInstance()
+                fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.COMPLETE)
             }
             R.id.nav_todo -> {
-                fragment = TaskListFragment.newInstance()
+                fragment = TaskListFragment.newInstance(TaskConstants.TASKFILTER.TODO)
             }
             R.id.nav_logout -> {
                 handleLogOut()

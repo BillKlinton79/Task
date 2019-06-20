@@ -30,6 +30,7 @@ class TaskDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
          ${DataBaseConstants.TASK.COLUMNS.USERID} INTEGER,
          ${DataBaseConstants.TASK.COLUMNS.PRIORITYID} INTEGER,
          ${DataBaseConstants.TASK.COLUMNS.DUEDATE} TEXT,
+         ${DataBaseConstants.TASK.COLUMNS.DESCRIPTION} TEXT,
          ${DataBaseConstants.TASK.COLUMNS.COMPLETE} INTEGER
         );
     """
@@ -45,6 +46,7 @@ class TaskDataBaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_
         db?.execSQL(createTableUser)
         db?.execSQL(createTableTask)
         db?.execSQL(createTablePriority)
+        db?.execSQL(insertPriorities)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

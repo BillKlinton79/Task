@@ -12,6 +12,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/descricao"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -20,7 +24,11 @@
             android:id="@+id/spinnerPriority"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="start"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintLeft_toRightOf="@id/checkComplete"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editDescription"></Spinner>
 
@@ -29,23 +37,37 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Completa"
+            android:gravity="bottom"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintRight_toLeftOf="@id/spinnerPriority"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinnerPriority"/>
+            app:layout_constraintTop_toBottomOf="@id/editDescription"/>
 
     <Button
             android:id="@+id/buttonDate"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Clique para selecionar a data"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/checkComplete"/>
     <Button
             android:id="@+id/buttonSave"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Adicionar Tarefa"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/buttonDate"/>

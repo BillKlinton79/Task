@@ -10,12 +10,14 @@ import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.widget.TextView
 import com.example.task.R
 import com.example.task.business.PriorityBusiness
 import com.example.task.constants.TaskConstants
 import com.example.task.repository.PriorityCacheConstants
 import com.example.task.util.SecurityPreferences
 import kotlinx.android.synthetic.main.app_bar_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
@@ -27,7 +29,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         /*val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -49,6 +51,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mPriorityBusiness = PriorityBusiness(this)
         loadPriorityCache()
         startDefaultFragment()
+        formatUserName()
+        formatDate()
+    }
+
+    private fun formatDate() {
+        val days =
+            arrayOf("Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado")
+        val months = arrayOf(
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro")
+
+        val calendar = Calendar.getInstance()
+        val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+        val month = calendar.get(Calendar.MONTH)
+
+        val str = "${days[dayOfWeek]}, $dayOfMonth de ${months[month]} de ${calendar.get(Calendar.YEAR)}"
+
+        textDateDescription.text = str
+    }
+
+    private fun formatUserName() {
+        var str = "Olá, ${mSecurityPreferences.getStoredString(TaskConstants.KEY.USER_NAME)}!"
+        textHello.text = str
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val header = navigationView.getHeaderView(0)
+        var name = header.findViewById<TextView>(R.id.textName)
+        var email = header.findViewById<TextView>(R.id.textEmail)
+
+        name.text = mSecurityPreferences.getStoredString(TaskConstants.KEY.USER_NAME)
+        email.text = mSecurityPreferences.getStoredString(TaskConstants.KEY.USER_EMAIL)
     }
 
     private fun loadPriorityCache() {
@@ -97,6 +130,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.nav_logout -> {
                 handleLogOut()
+                return false
             }
         }
 

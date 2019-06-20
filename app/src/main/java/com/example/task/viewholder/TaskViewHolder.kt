@@ -59,10 +59,12 @@ class TaskViewHolder(
 
     private fun showUpdateConfirmationDialog(taskEntity: TaskEntity) {
 
+        val status = if(taskEntity.complete) "incompleta" else "completa"
+
         AlertDialog.Builder(context)
             .setTitle("Atualização de tarefa")
-            .setMessage("Deseja atualizar ${taskEntity.description}?")
-            .setIcon(R.drawable.ic_delete)
+            .setMessage("Deseja marcar a tarefa ${taskEntity.description} como $status?")
+            .setIcon(R.drawable.ic_update)
             .setPositiveButton("Atualizar", { dialog, which -> listener.setTaskComplete(taskEntity) })
             .setNegativeButton("Cancelar", null).show()
 

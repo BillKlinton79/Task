@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/activity_vertical_margin"
         tools:context=".views.RegisterActivity">
 
     <EditText
@@ -12,53 +13,39 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/nome"
-            android:gravity="center"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" style="@style/mGrayEdit"
+            android:drawableLeft="@drawable/ic_name"/>
 
     <EditText
             android:id="@+id/editEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/email"
-            android:gravity="center"
             android:inputType="textEmailAddress"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editName"/>
+            app:layout_constraintTop_toBottomOf="@id/editName" style="@style/mGrayEdit"
+            android:drawableLeft="@drawable/ic_mail"/>
 
     <EditText
             android:id="@+id/editPassWord"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:hint="@string/senha"
-            android:gravity="center"
             android:inputType="textPassword"
-            android:layout_marginTop="25dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editEmail"/>
+            app:layout_constraintTop_toBottomOf="@id/editEmail" style="@style/mGrayEdit"
+            android:drawableLeft="@drawable/ic_lock"/>
 
     <Button
             android:id="@+id/buttonSave"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cadastrar"
-            android:textColor="@color/colorWhite"
-            android:background="@color/colorPrimary"
-            android:layout_marginTop="80dp"
-            android:layout_marginLeft="70dp"
-            android:layout_marginRight="70dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editPassWord"/>
+            app:layout_constraintBottom_toBottomOf="parent" style="@style/mDefaultButton"/>
 </android.support.constraint.ConstraintLayout>
